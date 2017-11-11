@@ -1,0 +1,12 @@
+{
+    "name": "feature-configurator",
+    "version": "0.1.0",
+    "description": "Browser-based configurator for FeatureIDE feature models",
+    "scripts": {
+        "prepare": "browserify node_modules/logic-solver/logic-solver.js --standalone Logic | uglifyjs > src/logic-solver.js && cat src/*.js | uglifyjs -o bundle.js"
+    },
+    "devDependencies": {
+        "logic-solver": "^2.0.1"
+    },
+    "dependencies": {}
+}
