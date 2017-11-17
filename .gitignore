@@ -1,3 +1,4 @@
 node_modules
 src/logic-solver.js
 bundle.js
+model.xml
