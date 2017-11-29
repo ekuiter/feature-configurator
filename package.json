@@ -1,7 +1,12 @@
 {
     "name": "feature-configurator",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "description": "Browser-based configurator for FeatureIDE feature models",
+    "license": "SEE LICENSE IN README.md",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ekuiter/feature-configurator.git"
+    },
     "scripts": {
         "prepare": "browserify node_modules/logic-solver/logic-solver.js --standalone Logic | uglifyjs > src/logic-solver.js && cat src/*.js | uglifyjs -o bundle.js"
     },
