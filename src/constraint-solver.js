@@ -65,6 +65,8 @@ ConstraintSolver.prototype.crossTreeConstraint = function(rule) {
         return self.crossTreeConstraint($(rule).children()[n]);
     }
     
+    if (op === "eq" && num === 2)
+        return Logic.equiv(constrainedChild(0), constrainedChild(1));
     if (op === "imp" && num === 2)
         return Logic.implies(constrainedChild(0), constrainedChild(1));
     if (op === "conj" && num === 2)
