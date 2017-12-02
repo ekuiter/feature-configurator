@@ -67,29 +67,38 @@ ConfigurationRenderer.prototype.getOptions = function(options) {
         },
         
         renderFeature: function(feature) {
-            return $("<div></div>").append($("<li></li>").attr("name", feature.name).
-                                           append($("<label></label>").
-                                                  append($("<input type=\"checkbox\">")).
-                                                  append(this.options.renderLabel.call(this, $("<span></span>"), feature)))).html();
+            var li = $("<li></li>").attr("name", feature.name).
+                append($("<label></label>").
+                       append($("<input type=\"checkbox\">")).
+                       append(this.options.renderLabel.call(this, $("<span></span>"), feature)));
+            if (feature.hasValue && this.configuration.isEnabled(feature))
+                li.append($("<input type=\"text\">").attr("value", feature.value));
+            return $("<div></div>").append(li).html();
         }, 
 
         initializeFeature: function(node, feature, fn) {
-            node.find("input").
+            var change = function() {
+                window.setTimeout(fn, 0);
+            };
+            node.find("input[type=checkbox]").
                 prop("disabled", !this.configuration.isManual(feature) && this.configuration.isAutomatic(feature)).
                 tristate({
                     state: this.configuration.isEnabled(feature) ? true : this.configuration.isDisabled(feature) ? null : false,
-                    change: function() {
-                        window.setTimeout(fn, 0);
-                    }
+                    change: change
                 });
+            node.find("input[type=text]").change(change);
         },
         
         readFeature: function(node, feature) {
-            if (node.find("input").prop("disabled"))
+            var valueInput = node.find("input[type=text]");
+            if (feature.hasValue && valueInput.length)
+                feature.setValue(valueInput.val());
+            
+            if (node.find("input[type=checkbox]").prop("disabled"))
                 return;
-            if (node.find("input").prop("checked"))
+            if (node.find("input[type=checkbox]").prop("checked"))
                 return "selectedFeatures";
-            else if (node.find("input").prop("indeterminate"))
+            else if (node.find("input[type=checkbox]").prop("indeterminate"))
                 return "deselectedFeatures";
         }
     }, options);

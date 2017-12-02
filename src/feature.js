@@ -1,6 +1,7 @@
 function Feature(node, parent, children) {
     if (!(this instanceof Feature))
         return new Feature(node, parent, children);
+    var self = this;
 
     function getDescription(node) {
         var description = node.find("> description").get();
@@ -22,6 +23,15 @@ function Feature(node, parent, children) {
         }).map(function(child) {
             return Feature($(child));
         });
+
+    // extension to FeatureIDE models to support value features (features with string values)
+    this.value = node.attr("value");
+    this.hasValue = typeof this.value !== typeof undefined && this.value !== false;
+    this.setValue = function(value) {
+        if (!self.hasValue)
+            throw "not a value feature";
+        self.value = value;
+    };
 }
 
 function featureFinder(name) {

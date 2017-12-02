@@ -92,6 +92,8 @@ Configuration.prototype.serialize = function() {
                      "undefined");
         setAttribute(node, "manual", manual);
         setAttribute(node, "name", feature.name);
+        if (feature.hasValue)
+            setAttribute(node, "value", feature.value);
         xml.children[0].appendChild(node);
     });
 
