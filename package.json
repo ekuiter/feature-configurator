@@ -1,6 +1,6 @@
 {
     "name": "feature-configurator",
-    "version": "0.1.5",
+    "version": "0.1.6",
     "description": "Browser-based configurator for FeatureIDE feature models",
     "license": "SEE LICENSE IN README.md",
     "repository": {

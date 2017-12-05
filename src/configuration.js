@@ -99,3 +99,22 @@ Configuration.prototype.serialize = function() {
 
     return new XMLSerializer().serializeToString(xml);
 };
+
+Configuration.fromXml = function(model, xml) {
+    var selectedFeatures = [], deselectedFeatures = [];
+    
+    $(xml).find("feature").each(function() {
+        var feature = model.getFeature($(this).attr("name")),
+            value = $(this).attr("value");
+        
+        if ($(this).attr("manual") === "selected")
+            selectedFeatures.push(feature);
+        else if ($(this).attr("manual") === "unselected")
+            deselectedFeatures.push(feature);
+        
+        if (typeof value !== typeof undefined)
+            feature.setValue(value);
+    });
+
+    return new Configuration(model, selectedFeatures, deselectedFeatures);
+};
