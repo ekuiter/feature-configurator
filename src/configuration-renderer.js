@@ -77,8 +77,9 @@ ConfigurationRenderer.prototype.getOptions = function(options) {
         }, 
 
         initializeFeature: function(node, feature, fn) {
+            var self = this;
             var change = function() {
-                window.setTimeout(fn, 0);
+                window.setTimeout(fn.bind(self), 0);
             };
             node.find("input[type=checkbox]").
                 prop("disabled", !this.configuration.isManual(feature) && this.configuration.isAutomatic(feature)).

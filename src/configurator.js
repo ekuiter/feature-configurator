@@ -15,6 +15,10 @@ Configurator.prototype.render = function(configuration) {
 
     var configurationRenderer = new ConfigurationRenderer(configuration, this.options.renderer);
     configurationRenderer.renderTo(self.options.target, function() {
-        self.render(configurationRenderer.read(self.options.target));
+        var newConfiguration = this.read(self.options.target);
+        if (newConfiguration.isValid())
+            self.render(newConfiguration);
+        else
+            self.render(this.configuration);
     });
 };
