@@ -82,7 +82,7 @@ ConfigurationRenderer.prototype.getOptions = function(options) {
                 window.setTimeout(fn.bind(self), 0);
             };
             node.find("input[type=checkbox]").
-                prop("disabled", !this.configuration.isManual(feature) && this.configuration.isAutomatic(feature)).
+                prop("disabled", this.configuration.isAutomatic(feature)).
                 tristate({
                     state: this.configuration.isEnabled(feature) ? true : this.configuration.isDisabled(feature) ? null : false,
                     change: change

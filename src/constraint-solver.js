@@ -81,9 +81,14 @@ ConstraintSolver.prototype.crossTreeConstraint = function(rule) {
     throw "unknown operation " + op + " with " + num + " arguments encountered";
 };
 
-ConstraintSolver.prototype.configurationConstraint = function(configuration) {
-    return Logic.and(configuration.selectedFeatures.map(featureName()),
-                     configuration.deselectedFeatures.map(featureName()).map(function(feature) {
+ConstraintSolver.prototype.configurationConstraint = function(configuration, excludeFeature) {
+    function not(excludeFeature) {
+        return function(feature) {
+            return !excludeFeature || excludeFeature.name !== feature.name;
+        };
+    }
+    return Logic.and(configuration.selectedFeatures.filter(not(excludeFeature)).map(featureName()),
+                     configuration.deselectedFeatures.filter(not(excludeFeature)).map(featureName()).map(function(feature) {
                          return Logic.not(feature);
                      }));
 };
@@ -93,9 +98,9 @@ ConstraintSolver.prototype.isValid = function(configuration) {
 };
 
 ConstraintSolver.prototype.isDeactivated = function(configuration, feature) {
-    return !this.solver.solveAssuming(Logic.and(this.configurationConstraint(configuration), feature.name));
+    return !this.solver.solveAssuming(Logic.and(this.configurationConstraint(configuration, feature), feature.name));
 };
 
 ConstraintSolver.prototype.isActivated = function(configuration, feature) {
-    return !this.solver.solveAssuming(Logic.and(this.configurationConstraint(configuration), Logic.not(feature.name)));
+    return !this.solver.solveAssuming(Logic.and(this.configurationConstraint(configuration, feature), Logic.not(feature.name)));
 };

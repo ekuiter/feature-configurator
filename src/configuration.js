@@ -31,6 +31,8 @@ Configuration.prototype.getDeactivatedFeatures = function() {
     var self = this;
     if (self._deactivatedFeatures === undefined)
         self._deactivatedFeatures = self.model.features.filter(function(feature) {
+            if (self._activatedFeatures && self._activatedFeatures.find(featureFinder(feature.name)))
+                return false; // performance optimization
             return self.model.constraintSolver.isDeactivated(self, feature);
         });
     return self._deactivatedFeatures;
@@ -40,6 +42,8 @@ Configuration.prototype.getActivatedFeatures = function() {
     var self = this;
     if (self._activatedFeatures === undefined)
         self._activatedFeatures = self.model.features.filter(function(feature) {
+            if (self._deactivatedFeatures && self._deactivatedFeatures.find(featureFinder(feature.name)))
+                return false;
             return self.model.constraintSolver.isActivated(self, feature);
         });
     return self._activatedFeatures;
