@@ -1,12 +1,10 @@
 function Configuration(model, selectedFeatures, deselectedFeatures) {
     if (!(this instanceof Configuration))
-        return new Configuration(model, features);
+        return new Configuration(model, selectedFeatures, deselectedFeatures);
 
-    selectedFeatures = selectedFeatures || [];
-    deselectedFeatures = deselectedFeatures || [];
     this.model = model;
-    this.selectedFeatures = selectedFeatures;
-    this.deselectedFeatures = deselectedFeatures;
+    this.selectedFeatures = selectedFeatures || [];
+    this.deselectedFeatures = deselectedFeatures || [];
     this.getSelectedFeature = featureGetter("selectedFeatures");
     this.getDeselectedFeature = featureGetter("deselectedFeatures");
 }
