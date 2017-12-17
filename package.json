@@ -1,8 +1,8 @@
 {
     "name": "feature-configurator",
-    "version": "0.1.10",
+    "version": "0.1.11",
     "description": "Browser-based configurator for FeatureIDE feature models",
-    "license": "SEE LICENSE IN README.md",
+    "license": "LGPL-3.0",
     "repository": {
         "type": "git",
         "url": "https://github.com/ekuiter/feature-configurator.git"
