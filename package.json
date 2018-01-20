@@ -1,6 +1,6 @@
 {
     "name": "feature-configurator",
-    "version": "0.1.11",
+    "version": "1.0.0",
     "description": "Browser-based configurator for FeatureIDE feature models",
     "license": "LGPL-3.0",
     "repository": {
@@ -12,6 +12,5 @@
     },
     "devDependencies": {
         "logic-solver": "^2.0.1"
-    },
-    "dependencies": {}
+    }
 }
