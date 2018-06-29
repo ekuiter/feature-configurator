@@ -14,7 +14,7 @@ function XmlModel(xml) {
 
     function getRules() {
         return $(xml).find("constraints rule").map(function() {
-            var children = $(this).children().get();
+            var children = $(this).children(":not(description)").get();
             if (children.length !== 1)
                 throw "rule does not have exactly one child";
             return children[0];
